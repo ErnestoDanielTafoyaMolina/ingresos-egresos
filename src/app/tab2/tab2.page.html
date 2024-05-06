@@ -5,18 +5,42 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let registro of registros">
-      <ion-label>
-        <h2>Fecha: {{ registro.dia }}/{{ registro.mes }}/{{ registro.anio }}</h2>
-        <p>Ingresos: {{ registro.ingresos | currency:'USD':'symbol-narrow' }}</p>
-        <p>Egresos: {{ registro.egresos | currency:'USD':'symbol-narrow' }}</p>
-      </ion-label>
-      <ion-button fill="outline" slot="end" *ngIf="registro.id !== null && registro.id !== undefined" (click)="eliminarRegistro(registro.id)">
-        Eliminar
-      </ion-button>
-    </ion-item>
+  <ion-segment [(ngModel)]="tipoRegistro">
+    <ion-segment-button value="ingreso">
+      <ion-label>Ingresos</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="egreso">
+      <ion-label>Egresos</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Lista para Ingresos -->
+  <ion-list *ngIf="tipoRegistro === 'ingreso'">
+    <ng-container *ngFor="let registro of registros">
+      <ion-item *ngIf="registro.ingresos > 0">
+        <ion-label>
+          <h2>Fecha: {{ registro.dia }}/{{ registro.mes }}/{{ registro.anio }}</h2>
+          <p>Ingresos: {{ registro.ingresos | currency:'USD':'symbol-narrow' }}</p>
+        </ion-label>
+        <ion-button fill="outline" slot="end" *ngIf="registro.id !== null && registro.id !== undefined" (click)="eliminarRegistro(registro.id)">
+          Eliminar
+        </ion-button>
+      </ion-item>
+    </ng-container>
   </ion-list>
-  <!-- Agregar un botón para recargar la lista si es necesario -->
-  <!-- <ion-button (click)="cargarRegistros()">Recargar Registros</ion-button> -->
+
+  <!-- Lista para Egresos -->
+  <ion-list *ngIf="tipoRegistro === 'egreso'">
+    <ng-container *ngFor="let registro of registros">
+      <ion-item *ngIf="registro.egresos > 0">
+        <ion-label>
+          <h2>Fecha: {{ registro.dia }}/{{ registro.mes }}/{{ registro.anio }}</h2>
+          <p>Egresos: {{ registro.egresos | currency:'USD':'symbol-narrow' }}</p>
+        </ion-label>
+        <ion-button fill="outline" slot="end" *ngIf="registro.id !== null && registro.id !== undefined" (click)="eliminarRegistro(registro.id)">
+          Eliminar
+        </ion-button>
+      </ion-item>
+    </ng-container>
+  </ion-list>
 </ion-content>

@@ -8,6 +8,7 @@ import { FinanzasService, RegistroFinanciero } from '../services/finanzas.servic
 })
 export class Tab2Page {
   registros: RegistroFinanciero[] = [];
+  tipoRegistro = 'ingreso';  // Valor inicial para los segmentos
 
   constructor(private finanzasService: FinanzasService) {
     this.cargarRegistros();

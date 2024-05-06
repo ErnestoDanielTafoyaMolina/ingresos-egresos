@@ -7,22 +7,38 @@ import { FinanzasService } from '../services/finanzas.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  fecha: string|undefined; // Asume el formato de fecha ISO por defecto
-  nuevoRegistro = { id:undefined, dia: 0, mes: 0, anio: 0, ingresos: 0, egresos: 0 };
+  fecha: string | undefined; // Almacenará la fecha como string en formato ISO
+  tipoRegistro = 'ingreso'; // Valor predeterminado
+  nuevoRegistro = { dia: 0, mes: 0, anio: 0, ingresos: 0, egresos: 0 };
 
   constructor(private finanzasService: FinanzasService) {}
 
   agregarRegistro() {
     if (this.fecha) {
-      const dateParts = new Date(this.fecha);
-      this.nuevoRegistro.dia = dateParts.getDate();
-      this.nuevoRegistro.mes = dateParts.getMonth() + 1; // getMonth() devuelve 0-11
-      this.nuevoRegistro.anio = dateParts.getFullYear();
+      const fechaObj = new Date(this.fecha);
+      this.nuevoRegistro.dia = fechaObj.getDate();
+      this.nuevoRegistro.mes = fechaObj.getMonth() + 1; // getMonth devuelve un índice basado en 0
+      this.nuevoRegistro.anio = fechaObj.getFullYear();
     }
 
+    // Configurar ingresos y egresos según el tipo seleccionado
+    if (this.tipoRegistro === 'ingreso') {
+      this.nuevoRegistro.ingresos = this.nuevoRegistro.ingresos;
+      this.nuevoRegistro.egresos = 0;
+    } else {
+      this.nuevoRegistro.egresos = this.nuevoRegistro.egresos;
+      this.nuevoRegistro.ingresos = 0;
+    }
+
+    // Agregar el registro utilizando el servicio
     this.finanzasService.agregarRegistro(this.nuevoRegistro);
-    // Reset form
+
+    // Reiniciar los valores después de agregar
+    this.resetForm();
+  }
+
+  resetForm() {
     this.fecha = undefined;
-    this.nuevoRegistro = { id:undefined, dia: 0, mes: 0, anio: 0, ingresos: 0, egresos: 0 };
+    this.nuevoRegistro = { dia: 0, mes: 0, anio: 0, ingresos: 0, egresos: 0 };
   }
 }

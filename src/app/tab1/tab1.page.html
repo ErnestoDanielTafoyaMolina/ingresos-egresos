@@ -5,17 +5,29 @@
 </ion-header>
 
 <ion-content>
+  <ion-segment [(ngModel)]="tipoRegistro">
+    <ion-segment-button value="ingreso">
+      <ion-label>Ingreso</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="egreso">
+      <ion-label>Egreso</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
   <ion-item>
     <ion-label position="floating">Fecha</ion-label>
     <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="fecha"></ion-datetime>
   </ion-item>
-  <ion-item>
+
+  <ion-item *ngIf="tipoRegistro === 'ingreso'">
     <ion-label position="floating">Ingresos</ion-label>
     <ion-input [(ngModel)]="nuevoRegistro.ingresos" type="number"></ion-input>
   </ion-item>
-  <ion-item>
+
+  <ion-item *ngIf="tipoRegistro === 'egreso'">
     <ion-label position="floating">Egresos</ion-label>
     <ion-input [(ngModel)]="nuevoRegistro.egresos" type="number"></ion-input>
   </ion-item>
+
   <ion-button expand="full" (click)="agregarRegistro()">Agregar Registro</ion-button>
 </ion-content>
