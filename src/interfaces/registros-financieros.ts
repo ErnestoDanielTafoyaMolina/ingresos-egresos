@@ -1,8 +1,8 @@
 interface RegistroFinanciero {
-  id: number; // Agregar un ID para facilitar la actualización y eliminación
+  id?: number | null; // Agregar un ID para facilitar la actualización y eliminación
   dia: number;
   mes: number;
-  año: number;
+  anio: number;
   ingresos: number;
   egresos: number;
 }
