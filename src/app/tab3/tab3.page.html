@@ -1,17 +1,27 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Metricas
-    </ion-title>
+    <ion-title>Balance Financiero</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Metricas</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 3 page"></app-explore-container>
-</ion-content>
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Desde</ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="fechaInicio"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Hasta</ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="fechaFin"></ion-datetime>
+  </ion-item>
+  <ion-button expand="full" (click)="calcularBalance()">Calcular Balance</ion-button>
+  <ion-card *ngIf="balanceMostrado">
+    <ion-card-header>
+      <ion-card-title>Balance de Ingresos y Egresos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Total Ingresos: {{ totalIngresos | currency:'USD':'symbol-narrow' }}</p>
+      <p>Total Egresos: {{ totalEgresos | currency:'USD':'symbol-narrow' }}</p>
+      <p *ngIf="totalIngresos > 0">Porcentaje de Egresos sobre Ingresos: {{ porcentajeEgresos.toFixed(2) }}%</p>
+      <p *ngIf="totalIngresos === 0">No hay ingresos registrados en este período.</p>
+    </ion-card-content>
+  </ion-card>
