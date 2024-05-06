@@ -1,0 +1,7 @@
+{
+  "name": "ingresos-egresos-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
