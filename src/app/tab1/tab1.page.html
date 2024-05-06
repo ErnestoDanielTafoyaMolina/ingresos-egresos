@@ -6,16 +6,8 @@
 
 <ion-content>
   <ion-item>
-    <ion-label position="floating">Día</ion-label>
-    <ion-input [(ngModel)]="nuevoRegistro.dia" type="number"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating">Mes</ion-label>
-    <ion-input [(ngModel)]="nuevoRegistro.mes" type="number"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating">Año</ion-label>
-    <ion-input [(ngModel)]="nuevoRegistro.anio" type="number"></ion-input>
+    <ion-label position="floating">Fecha</ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="fecha"></ion-datetime>
   </ion-item>
   <ion-item>
     <ion-label position="floating">Ingresos</ion-label>
